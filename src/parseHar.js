@@ -571,11 +571,11 @@ const runMe = async () => {
         allJSFilesData = []
         await Promise.all( harFiles.map(async (file) => {
             try{
-                dict = await analyzeHarFile(file,services);
+                const dict = await analyzeHarFile(file,services);
                 allFilesData.push(dict);
                 await Promise.all( dict.sameOriginLinks.map(async link => {
                     try{
-                        ans = await analyzeJSFile(file,link,"sameOrigin","./dummy")
+                        const ans = await analyzeJSFile(file,link,"sameOrigin","./dummy")
                         allJSFilesData.push(convertHeadersFormat(ans));
                     } catch(_){
 
@@ -583,7 +583,7 @@ const runMe = async () => {
                 }))
                 await Promise.all( Object.keys(dict.jsClassification).map(async key => {
                     await Promise.all( dict.jsClassification[key].map(async link => {
-                        ans = await analyzeJSFile(file,link,key,"./dummy")
+                        const ans = await analyzeJSFile(file,link,key,"./dummy")
                         // console.log(ans)
                         allJSFilesData.push(convertHeadersFormat(ans));
                     }))
